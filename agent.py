@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-# --- Setup ---
+
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key=api_key)
@@ -14,7 +14,7 @@ MEMORY_FILE = "chat_history.json"
 MODEL = "gemini-2.5-flash"
 
 
-# --- Tools ---
+
 def calculator(operation: str, a: float, b: float) -> float:
     """Performs a basic math operation (add, subtract, multiply, divide) on two numbers."""
     if operation == "add":
@@ -49,7 +49,7 @@ def get_weather(city: str) -> str:
     return f"The current temperature in {city} is {temp}°C."
 
 
-# --- Memory (persistent across sessions) ---
+
 def load_history():
     if os.path.exists(MEMORY_FILE):
         with open(MEMORY_FILE, "r") as f:
@@ -62,7 +62,7 @@ def save_history(history):
         json.dump(history, f, indent=2)
 
 
-# --- Agent configuration ---
+
 config = types.GenerateContentConfig(
     tools=[calculator, get_weather],
     system_instruction=(
@@ -75,7 +75,7 @@ config = types.GenerateContentConfig(
 )
 
 
-# --- Main loop ---
+
 def main():
     conversation_history = load_history()
 
